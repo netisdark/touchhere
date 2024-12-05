@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zoom-Out Kiss Animation</title>
+  <title></title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes zoomOut {
@@ -29,47 +29,53 @@
     }
     @keyframes fade {
       0% {
-        opacity: 1;
+        opacity: 0;
       }
       100% {
-        opacity: 0;
+        opacity: 1;
       }
     }
   </style>
 </head>
 <body class="bg-gray-900 text-white min-h-screen flex items-center justify-center">
-  <audio id="kiss-sound" src="kiss.aac" autoplay></audio>
-  <div class="text-center space-y-4">
-    <!-- Animated Kiss -->
-    <div id="main-kiss" class="zoom-out text-7xl lg:text-9xl">
-      💋
-    </div>
-    <h1 class="text-2xl md:text-4xl neon-text font-bold">
-      to wasabi 😘
-    </h1>
-    <h2 class="text-xl md:text-3xl text-gray-300">
-     from your wifey
-    </h2>
+  <audio id="kiss-sound">
+    <source src="kiss.mp3" type="audio/mpeg">
+  </audio>
+  <div id="main-content" class="text-center space-y-4">
+     <h1 class="text-2xl md:text-4xl neon-text font-bold">click anywhere</h1>
   </div>
 
   <script>
-    const kissSound = document.getElementById('kiss-sound');
-    const mainKiss = document.getElementById('main-kiss');
+    // Function to play the animation and sound
+    function playAnimation() {
+      const audio = document.getElementById('kiss-sound');
+      audio.play().catch(error => {
+        console.error('Autoplay failed:', error);
+      });
 
-    function createRandomKisses() {
+      // Clear previous content if any
+      document.getElementById('main-content').innerHTML = `
+        <div id="main-kiss" class="zoom-out text-7xl lg:text-9xl">💋</div>
+        <h1 class="text-2xl md:text-4xl neon-text font-bold">to wasabi 😘</h1>
+        <h2 class="text-xl md:text-3xl text-gray-300">from your wifey</h2>
+      `;
+      
+      // Create 20 floating kiss emojis
       for (let i = 0; i < 20; i++) {
         const kiss = document.createElement('div');
-        kiss.textContent = '💋';
+        kiss.textContent = '😘';
         kiss.classList.add('kiss');
         kiss.style.top = Math.random() * window.innerHeight + 'px';
         kiss.style.left = Math.random() * window.innerWidth + 'px';
         kiss.style.fontSize = `${Math.random() * 2 + 1}rem`;
         document.body.appendChild(kiss);
 
-      
+        
       }
     }
 
+    // Add click event to trigger the animation and sound
+    document.body.addEventListener('click', playAnimation);
   </script>
 </body>
-</html>
+  </html>
